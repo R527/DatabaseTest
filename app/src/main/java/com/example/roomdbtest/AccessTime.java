@@ -5,7 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity (tableName = "test")
 public class AccessTime {
     @PrimaryKey(autoGenerate = true)
     private int id;

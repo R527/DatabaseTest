@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,6 +19,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    final String debugTag = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         AppDatabase database = AppDatabaseSingleton.getInstace(getApplicationContext());
 
         btn.setOnClickListener(new ButtonClickListenr(this,database,textView));
+
     }
 
     private class ButtonClickListenr implements View.OnClickListener{
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            Log.d("debugTag","onClick");
             new DataStoreAsyncTask(database, activity, textView).execute();
         }
     }
@@ -71,6 +76,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer code){
+            Activity activity = weakActivity.get();
+            if(activity == null){
+                return;
+            }
+            textView.setText(stringBuilder.toString());
         }
     }
 }
