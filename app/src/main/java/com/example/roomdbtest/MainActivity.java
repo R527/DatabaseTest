@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    final String debugTag = "MainActivity";
+    String debugTag = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Void...params){
             AccessTimeDao accessTimeDao = (AccessTimeDao) database.accessTimeDao();
+            Log.d("new AccessTime",new Timestamp(System.currentTimeMillis()).toString());
             accessTimeDao.insert(new AccessTime(new Timestamp(System.currentTimeMillis()).toString()));
 
             stringBuilder = new StringBuilder();
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Integer code){
+            Log.d("MainActivity","onPostExecute");
             Activity activity = weakActivity.get();
             if(activity == null){
                 return;

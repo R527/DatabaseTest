@@ -9,6 +9,12 @@ import androidx.room.Query;
 
 @Dao
 public interface AccessTimeDao {
+
+    @Query("SELECT * FROM accessTime")
+    List<AccessTime> getAll();
+
+    @Query("SELECT * FROM accessTime WHERE id IN (:ids)")
+    List<AccessTime> loadAllByIds(int[] ids);
     @Insert
     void insertAll(AccessTime... accessTimes);
 
@@ -18,11 +24,7 @@ public interface AccessTimeDao {
     @Delete
     void delete(AccessTime accessTime);
 
-    @Query("SELECT * FROM accessTime")
-    List<AccessTime> getAll();
-
-    @Query("SELECT * FROM accessTime WHERE id IN (:ids)")
-    List<AccessTime> loadAllByIds(int[] ids);
-
 }
+
+
 
