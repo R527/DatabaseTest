@@ -75,15 +75,19 @@ public class MainActivity extends AppCompatActivity {
         protected Integer doInBackground(Void...params){
             Log.d("MainActivity",new Timestamp(System.currentTimeMillis()).toString());
             AccessTimeDao accessTimeDao = (AccessTimeDao) database.accessTimeDao();
+            AccessTime accessTime = new AccessTime("");
 
             if(btn_flag){
                 Log.d("MainActivity","add");
                 accessTimeDao.insert(new AccessTime(new Timestamp(System.currentTimeMillis()).toString()));
+
             }else {
                 Log.d("MainActivity","delete");
-                AccessTime accessTime = new AccessTime("");
-                accessTime.setId(0);
-                accessTimeDao.delete(accessTime);
+
+                for(int i = 0;i < 150;i++){
+                    accessTime.setId(i);
+                    accessTimeDao.delete(accessTime);
+                }
             }
 
 
